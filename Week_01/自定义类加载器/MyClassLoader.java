@@ -1,4 +1,3 @@
-package com.alibo.demo.aaa;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,7 +6,7 @@ import java.nio.file.Paths;
 public class MyClassLoader extends ClassLoader {
 
     private String filePath;
-    private byte[] data = new byte[0];
+    private byte[] data;
 
     @Override
     protected Class<?> findClass(String name) {
