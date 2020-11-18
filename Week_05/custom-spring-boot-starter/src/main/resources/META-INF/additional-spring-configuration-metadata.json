@@ -1,0 +1,18 @@
+{"properties": [
+  {
+    "name": "custom.starter.enable",
+    "type": "java.lang.Boolean",
+    "description": "是否开启自定义starter",
+    "defaultValue": true
+  },
+  {
+    "name": "custom.student.id",
+    "type": "java.lang.String",
+    "description": "学生id"
+  },
+  {
+    "name": "custom.student.name",
+    "type": "java.lang.String",
+    "description": "学生姓名"
+  }
+]}

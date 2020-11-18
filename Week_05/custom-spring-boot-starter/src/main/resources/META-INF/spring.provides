@@ -1,0 +1,2 @@
+provides可有可无,好像就是提供一个信息,告诉别人这个包提供了什么
+provides: custom-spring-boot-starter
