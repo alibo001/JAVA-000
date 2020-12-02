@@ -1,0 +1,24 @@
+
+spring:
+  shardingsphere:
+    datasource:
+      names: master,slave0
+      master:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3307/db?serverTimezone=UTC&&characterEncoding=UTF-8
+        username: root
+#        password:
+      slave0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3308/db?serverTimezone=UTC&&characterEncoding=UTF-8
+        username: root
+#        password:
+    masterslave:
+      name: ms
+      master-data-source-name: master
+      slave-data-source-names: slave0
+    props:
+      sql:
+        show: true

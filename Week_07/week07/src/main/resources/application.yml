@@ -1,0 +1,20 @@
+
+spring:
+  # 数据源配置
+  datasource:
+    master: #主 写入
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3307/db?serverTimezone=UTC&&characterEncoding=UTF-8
+      username: root
+    slave1: # 从1 读取
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3308/db?serverTimezone=UTC&&characterEncoding=UTF-8
+      username: root
+    slave2: # 从2 读取
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3309/db?serverTimezone=UTC&&characterEncoding=UTF-8
+      username: root
+server:
+  port: 8888
+  servlet:
+    context-path: /demo
