@@ -25,7 +25,7 @@ class Week07ShardingApplicationTests {
         QueryRunner qr = new QueryRunner(dataSource);
 
         // 插入数据测试,t1在主库里,可以插入成功
-        Object insert = qr.insert(connection,"insert into t1 (id) values (22)", new ScalarHandler<>());
+        Object insert = qr.insert("insert into t1 (id) values (22)", new ScalarHandler<>());
 
         // 查询数据测试,t2 在从库里,可以查询出来
         List<Map<String, Object>> mapList = qr.query("select * from t2", new MapListHandler());
