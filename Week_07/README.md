@@ -25,7 +25,3 @@
 3. 读写分离 - 数据库框架版本 2.0
 
    代码见week07-sharding,  测试代码在test包里Week07ShardingApplicationTests
-
-   项目中使用了4.1.1版本的starter, 读写分离可以成功
-
-   如果换成5.0.0-alpha, 则只走主库, 可能是配置问题, 继续研究
