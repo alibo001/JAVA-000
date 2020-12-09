@@ -1,0 +1,45 @@
+#server:
+#  port: 8888
+#spring:
+#  shardingsphere:
+#    datasource:
+#      common:
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+#        type: com.zaxxer.hikari.HikariDataSource
+#        username: root
+#      ds-0:
+#        jdbc-url: jdbc:mysql://localhost:3317/db_mall?serverTimezone=UTC&&characterEncoding=UTF-8
+#      ds-1:
+#        jdbc-url: jdbc:mysql://localhost:3318/db_mall?serverTimezone=UTC&&characterEncoding=UTF-8
+#      names: ds0,ds1
+#    rules:
+#      sharding:
+#        default-database-strategy:
+#          standard:
+#            sharding-algorithm-name: database-inline
+#            sharding-column: order_id
+#        key-generators:
+#          snowflake:
+#            props:
+#              worker-id: 123
+#            type: SNOWFLAKE
+#
+#        sharding-algorithms:
+#          database-inline:
+#            props:
+#              algorithm-expression: ds$->{order_id % 2}
+#            type: INLINE
+#          t-order-inline:
+#            props:
+#              algorithm-expression: t-order-$->{order_id % 2}
+#            type: INLINE
+#        tables:
+#          t-order:
+#            actual-data-nodes: ds$->{0..1}.t_order-$->{0..1}
+#            key-generate-strategy:
+#              column: order_id
+#              key-generator-name: snowflake
+#            table-strategy:
+#              standard:
+#                sharding-algorithm-name: t-order-inline
+#                sharding-column: order_id
