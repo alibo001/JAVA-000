@@ -1,0 +1,6 @@
+server:
+  port: 9291
+  
+  profiles:
+    active: true
+
