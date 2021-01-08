@@ -1,14 +1,13 @@
 package com.example.week11.controller;
 
+import com.example.week11.counter.Counter;
 import com.example.week11.lock.MyRedisLock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -59,7 +58,7 @@ public class TestLockController {
                 }
             });
         }
-        return "";
+        return "finish";
     }
 
     /**
@@ -68,22 +67,22 @@ public class TestLockController {
      */
     @RequestMapping("decrementNum")
     public void decrementNum() {
-        String s = "if redis.call('get',KEYS[1]) == '0' then return 0 else return redis.call('decr',KEYS[1]) end";
-        // 初始设置总数为100
-        redisTemplate.opsForValue().set("num","100");
+        // 模拟设置初始值为 100
+        redisTemplate.opsForValue().set(Counter.COUNT_KEY,"100");
 
         // 模拟20个客户端抢购
-        for (int i = 0; i < 120; i++) {
+        for (int i = 0; i < 110; i++) {
             executorService.submit(()->{
-                Long num = redisTemplate.execute(new DefaultRedisScript<>(s,Long.class), Collections.singletonList("num"));
-                if (num != null && num != 0) {
-                    log.info("抢购成功");
+                Counter counter = new Counter(redisTemplate);
+                Long result = counter.decr();
+                if (result != null && result >= 0) {
+                    log.info("抢购成功,剩余{}个",result);
                 } else {
                     log.info("抢购失败");
                 }
             });
         }
-        System.out.println("ok");
+        System.out.println("finish");
 
     }
 
