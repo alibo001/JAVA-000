@@ -2,9 +2,11 @@ package com.example.week11.controller;
 
 import com.example.week11.counter.Counter;
 import com.example.week11.lock.MyRedisLock;
+import com.example.week11.order.Order;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  **/
 @Slf4j
 @RestController
-public class TestLockController {
+public class TestController {
 
     @Autowired
     private StringRedisTemplate redisTemplate;
@@ -84,6 +86,22 @@ public class TestLockController {
         }
         System.out.println("finish");
 
+    }
+
+    // ========= 发布订阅=========
+
+    @Autowired
+    RedisMessageListenerContainer container;
+    /**
+     *  发布
+     * @return
+     */
+    @RequestMapping("publish")
+    public void pubAndSub() {
+        for (int i = 0; i < 5; i++) {
+            redisTemplate.convertAndSend("orderTopic", new Order(i,"name"+i));
+        }
+        log.info("");
     }
 
 }
